@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
 
 /*
  *---------------------------------------------------------------
@@ -88,6 +88,25 @@ switch (ENVIRONMENT)
 		echo 'The application environment is not set correctly.';
 		exit(1); // EXIT_ERROR
 }
+
+$protocol = (isset($_SERVER['HTTPS']) &&
+($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 'https://' : 'http://';
+
+// Detect host with call global parameter SERVER_NAME if available or HTTP_HOST
+$host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
+
+// App directory configuration
+// If your application not in webroot, you can set application directory here
+// BEGIN WITH SLASH, NO TRAILING SLASH!
+$webdir  = '/simdc';
+
+// Put base url configuration variable here
+$base_url = $protocol . $host . $webdir;
+
+// Create BASE_URL constant
+define('BASE_URL', $base_url);
 
 /*
  *---------------------------------------------------------------

@@ -211,3 +211,22 @@ function get_real_ip()
    
    return $ip;
 }
+
+function js(string $path) {
+  return '<script src="'.site_url($path).'"></script>';
+}
+
+function showJS($js) {
+  if(!empty($js)) {
+    if(is_array($js))
+    {
+      for ($i=0; $i < count($js); $i++) { 
+        echo js($js[$i]);
+      }
+    } 
+    else 
+    {
+      echo js($js);
+    }
+  }
+}

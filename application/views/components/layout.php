@@ -13,6 +13,7 @@
     <link href="<?php echo base_url('assets/templates/css/sb-admin-2.css'); ?>" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" rel="stylesheet">
+    <meta name="X-CSRF-TOKEN" content="<?= $this->security->get_csrf_hash(); ?>">
     <style>
         .page-heading {
             display: flex;
@@ -20,6 +21,9 @@
             align-items: center;
         }
     </style>
+    <script>
+        let baseUrl = "<?= base_url(); ?>";
+    </script>
 </head>
 
 <body id="page-top">
@@ -40,8 +44,9 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
-    <?= showJS($js) ?>
+    <script src="<?php echo site_url('assets/js/toaster.js'); ?>"></script>
     <script>
+        const Toast = Swal.mixin({toast: true,position: 'bottom-end',showConfirmButton: false,timer: 5000});
         $(document).ready(function () {
             $('#dataTable').DataTable({
                 "pagingType": "simple_numbers",
@@ -53,6 +58,7 @@
             });
         });
     </script>
+    <?= showJS($js) ?>
 </body>
 
 </html>

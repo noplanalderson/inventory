@@ -42,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
+            $('#userTable').DataTable({
                 "pagingType": "simple_numbers",
                 "order": [],
                 "columnDefs": [{
@@ -50,6 +50,33 @@
                     "orderable": true
                 }]
             });
+        });
+
+        $('#manufactureTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
+        });
+
+        $('#deviceModelTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
+        });
+
+        $('#deviceGroupTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
         });
     </script>
 </body>

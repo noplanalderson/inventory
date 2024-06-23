@@ -7,14 +7,6 @@ class User extends CI_Controller
 
     public $input;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->library('session');
-        $this->load->helper('url');
-        $this->load->library('API_Request');
-    }
-
     public function index()
     {
         $response = apiGet('users');

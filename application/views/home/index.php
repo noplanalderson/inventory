@@ -1,1 +1,3 @@
-<h1 class="h3 mb-4 text-gray-800">Selamat Datang di Halaman Utama</h1>
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Selamat Datang di Halaman Utama</h1>
+</div>

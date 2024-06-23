@@ -18,6 +18,9 @@ class DataMaster extends CI_Controller
         $data['deviceGroups'] = $deviceGroupsResponse['data'];
         $data['manufactures'] = $manufacturesResponse['data'];
         $data['deviceModels'] = $deviceModelsResponse['data'];
+        $data['topbar'] = true;
+        $data['sidebar'] = true;
+        $data['footer'] = true;
 
         $this->load->view('components/layout', $data);
     }

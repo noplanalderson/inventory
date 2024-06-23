@@ -13,6 +13,9 @@ class User extends CI_Controller
         $data['title'] = "Users";
         $data['content'] = 'user/index';
         $data['users'] = $response['data'];
+        $data['topbar'] = true;
+        $data['sidebar'] = true;
+        $data['footer'] = true;
         $this->load->view('components/layout', $data);
     }
 
@@ -45,6 +48,9 @@ class User extends CI_Controller
         $data['title'] = "User Detail";
         $data['content'] = 'user/detail';
         $data['user'] = $response['data'];
+        $data['topbar'] = true;
+        $data['sidebar'] = true;
+        $data['footer'] = true;
         $this->load->view('components/layout', $data);
     }
 

@@ -254,7 +254,7 @@
                             <select class="form-control" id="groupId" name="groupId" required>
                                 <option value="" disabled selected>Select Group</option>
                                 <?php foreach ($deviceGroups as $group): ?>
-                                                        <option value="<?= $group['groupId']; ?>"><?= $group['groupName']; ?></option>
+                                <option value="<?= $group['groupId']; ?>"><?= $group['groupName']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -272,7 +272,7 @@
                             <select class="form-control" id="manuId" name="manuId" required>
                                 <option value="" disabled selected>Select Manufacture</option>
                                 <?php foreach ($manufactures as $manufacture): ?>
-                                                        <option value="<?= $manufacture['manuId']; ?>"><?= $manufacture['manuName']; ?></option>
+                                <option value="<?= $manufacture['manuId']; ?>"><?= $manufacture['manuName']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

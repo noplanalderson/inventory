@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
+    public $session;
+
+    public $input;
+
     public function __construct()
     {
         parent::__construct();
@@ -13,7 +17,7 @@ class User extends CI_Controller
 
     public function index()
     {
-        $response = $this->api_request->get('users');
+        $response = apiGet('users');
         $data['title'] = "Users";
         $data['content'] = 'user/index';
         $data['users'] = $response['data'];
@@ -31,7 +35,7 @@ class User extends CI_Controller
                 'userStatus' => $this->input->post('userStatus'),
             ];
 
-            $response = $this->api_request->post('users', $data);
+            $response = apiPost('users', $data);
 
             if ($response['code'] == 200) {
                 $this->session->set_flashdata('success', 'User berhasil dibuat!');
@@ -45,7 +49,7 @@ class User extends CI_Controller
 
     public function detail($id)
     {
-        $response = $this->api_request->get('users/' . $id);
+        $response = apiGet('users/' . $id);
         $data['title'] = "User Detail";
         $data['content'] = 'user/detail';
         $data['user'] = $response['data'];
@@ -63,7 +67,7 @@ class User extends CI_Controller
                 'userStatus' => $this->input->post('userStatus'),
             ];
 
-            $response = $this->api_request->put('users/' . $id, $data);
+            $response = apiPut('users/' . $id, $data);
 
             if ($response['code'] == 200) {
                 $this->session->set_flashdata('success', 'User berhasil diubah!');
@@ -77,7 +81,7 @@ class User extends CI_Controller
 
     public function delete($id)
     {
-        $response = $this->api_request->delete('users/' . $id);
+        $response = apiDelete('users/' . $id);
         if ($response['code'] == 200) {
             $this->session->set_flashdata('success', 'User berhasil dihapus!');
         } else {

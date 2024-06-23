@@ -9800,6 +9800,7 @@ a:focus {
   background-color: #f8f9fc;
   width: 100%;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 #wrapper #content-wrapper #content {
@@ -10861,7 +10862,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url("../img/datacenter.jpg");
   background-position: center;
   background-size: cover;
 }

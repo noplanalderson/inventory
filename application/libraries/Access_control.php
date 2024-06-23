@@ -12,9 +12,9 @@ defined('BASEPATH') OR die('No direct script access allowed');
 */
 class Access_control {
 
-    protected string $uid;
+    protected $uid;
 
-    protected string $gid;
+    protected $gid;
 
     public function __construct() {
         $this->uid = sessionGet('uid');

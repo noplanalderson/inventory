@@ -26,23 +26,9 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-layer-group"></i>
-            <span>Device Group</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-industry"></i>
-            <span>Manufacture</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?php echo base_url('datamaster'); ?>">
             <i class="fas fa-fw fa-cubes"></i>
-            <span>Device Model</span>
+            <span>Data Master</span>
         </a>
     </li>
 

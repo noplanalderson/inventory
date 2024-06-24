@@ -48,7 +48,7 @@
     <script>
         const Toast = Swal.mixin({toast: true,position: 'bottom-end',showConfirmButton: false,timer: 5000});
         $(document).ready(function () {
-            $('#dataTable').DataTable({
+            $('#userTable').DataTable({
                 "pagingType": "simple_numbers",
                 "order": [],
                 "columnDefs": [{
@@ -56,6 +56,33 @@
                     "orderable": true
                 }]
             });
+        });
+
+        $('#manufactureTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
+        });
+
+        $('#deviceModelTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
+        });
+
+        $('#deviceGroupTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "_all",
+                "orderable": true
+            }]
         });
     </script>
     <?= showJS($js) ?>

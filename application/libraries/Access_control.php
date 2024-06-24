@@ -23,11 +23,15 @@ class Access_control {
 
     public function isLogin() : bool
     {
-        return (bool) empty($this->uid && $this->gid);
+        return (bool) !empty($this->uid && $this->gid);
     }
 
-    public function checkAccess() : bool
+    public function checkRole() : void
     {
-        return (bool) $this->isLogin() && $this->gid === 'admin';
+        if(!$this->isLogin()) {
+            redirect('login');
+        } else {
+            if($this->gid !== 'admin') redirect('home');
+        }
     }
 }

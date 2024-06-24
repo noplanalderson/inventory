@@ -15,7 +15,7 @@ class Login extends CI_Controller
 
     public function index()
     {
-        if(!$this->access_control->isLogin()) redirect('dashboard');
+        if($this->access_control->isLogin()) redirect('dashboard');
 
         $data = array(
             'title' => "Login - SIMDC",

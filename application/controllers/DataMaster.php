@@ -7,6 +7,13 @@ class DataMaster extends CI_Controller
 
     public $input;
 
+    public $access_control;
+
+    public function  __construct()
+    {
+        parent::__construct();
+        if(!$this->access_control->isLogin()) redirect('login');
+    }
     public function index()
     {
         $deviceGroupsResponse = apiGet('groups');

@@ -7,7 +7,7 @@ class Logout extends CI_Controller
 
     public function index()
     {
-        if($this->access_control->isLogin()) redirect('login');
+        if(!$this->access_control->isLogin()) redirect('login');
         session_destroy();
         redirect('login');
     }

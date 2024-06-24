@@ -7,11 +7,14 @@ class User extends CI_Controller
 
     public $input;
 
+    public $access_control;
+
     public function __construct()
     {
         parent::__construct();
-        if(sessionGet('gid') !== 'admin') redirect('home');   
+        $this->access_control->checkRole();
     }
+    
     public function index()
     {
         $response = apiGet('users');

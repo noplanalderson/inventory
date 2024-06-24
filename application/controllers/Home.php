@@ -7,6 +7,9 @@ class Home extends CI_Controller
     {
         $data['title'] = "Home";
         $data['content'] = 'home/index';
+        $data['topbar'] = true;
+        $data['sidebar'] = true;
+        $data['footer'] = true;
         $this->load->view('components/layout', $data);
     }
 }

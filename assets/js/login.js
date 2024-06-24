@@ -41,7 +41,7 @@ $('#loginForm').on('submit', function(e) {
               } else {
                 const urlParams = new URLSearchParams(window.location.search);
                 const next = urlParams.get('next');
-                var url = (next == null) ? 'user' : next;
+                var url = (next == null) ? 'home' : next;
                 setTimeout(function () { window.location.href = baseUrl + url; }, 2000);
               }
 

@@ -43,7 +43,12 @@
                         <div class="form-group">
                             <label for="userPassword"><strong>Password:</strong></label>
                             <input type="password" class="form-control" id="userPassword" name="userPassword"
-                                value="***<?php echo $user['userPassword']; ?>***" disabled required>
+                                placeholder="********" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordRepeat"><strong>Repeat Password:</strong></label>
+                            <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"
+                                placeholder="********" disabled>
                         </div>
                         <div class="form-group">
                             <label for="userLevel"><strong>User Level:</strong></label>
@@ -82,8 +87,8 @@
                 <div class="card-header">
                 </div>
                 <div class="card-body text-center">
-                    <?php if (!empty($user['userPicture']) && @getimagesize($user['userPicture'])): ?>
-                        <img src="<?php echo $user['userPicture']; ?>" alt="User Picture" class="img-fluid rounded">
+                    <?php if (!empty($user['userPicture']) && @getimagesize(FCPATH . 'assets/uploads/users/' . $user['userPicture'])): ?>
+                        <img src="<?php echo site_url('assets/uploads/users/'.$user['userPicture']); ?>" alt="User Picture" class="img-fluid rounded-circle" style="height:200px;width:200px;">
                     <?php else: ?>
                         <i class="fas fa-user-circle fa-10x text-gray-300"></i>
                     <?php endif; ?>
@@ -123,6 +128,7 @@
     document.getElementById('editButton').addEventListener('click', function () {
         document.getElementById('userName').disabled = false;
         document.getElementById('userPassword').disabled = false;
+        document.getElementById('passwordRepeat').disabled = false;
         document.getElementById('userLevel').disabled = false;
         document.getElementById('userStatus').disabled = false;
         document.getElementById('userPicture').disabled = false;

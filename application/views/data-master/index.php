@@ -149,7 +149,7 @@
                                             <tr>
                                                 <td><?= $index + 1; ?></td>
                                                 <td><?= $device_group['groupName']; ?></td>
-                                                <td><?= $device_group['groupIcon']; ?></td>
+                                                <td><i class="<?= $device_group['groupIcon']; ?>"></i> <?= $device_group['groupIcon']; ?></td>
                                                 <td class="d-flex justify-content-center">
                                                     <button class="btn btn-info btn-sm mx-2" data-toggle="modal"
                                                         data-target="#dynamicModal" data-type="device_group"

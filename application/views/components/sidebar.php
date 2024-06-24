@@ -35,7 +35,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('devices') ?>">
             <i class="fas fa-fw fa-desktop"></i>
             <span>Devices</span>
         </a>

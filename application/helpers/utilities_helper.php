@@ -230,3 +230,12 @@ function showJS($js) {
     }
   }
 }
+
+function slug($str, $max = 30)
+{
+  if(strlen($str) > $max) {
+    $str = substr($str, 0, 30);
+  }
+  
+  return preg_replace('/[^a-zA-Z0-9]/', '-', strtolower($str));
+}

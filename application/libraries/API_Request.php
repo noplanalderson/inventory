@@ -1,8 +1,9 @@
 <?php
-
-use function GuzzleHttp\json_decode;
-
 defined('BASEPATH') OR die('No direct script access allowed');
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\ConnectException;
 /** 
  * Class API_Request
  * 
@@ -30,41 +31,54 @@ class API_Request {
         $this->auth     = array(API_USER, API_PASSWD);
     }
 
+    public function setupRequest(string $method, string $endpoint, array $request) : array
+    {
+        try {
+            $res = $this->client->$method($endpoint, $request);
+            $result = array_merge(['code' => $res->getStatusCode()], json_decode($res->getBody()->getContents(),true));
+
+        } catch (ClientException $e) {
+            $result = array('code' => $e->getResponse()->getStatusCode(), 'message' => 'Client error: ' . $e->getMessage());
+        } catch (ServerException $e) {
+            $result = array('code' => $e->getResponse()->getStatusCode(), 'message' => 'Server error: ' . $e->getMessage());
+        } catch (ConnectException $e) {
+            $result = array('code' => 504, 'message' => 'Connection error: ' . $e->getMessage());
+        } catch (RequestException $e) {
+            $result = array('code' => 504, 'message' => 'Request error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            $result = array('code' => 504, 'message' => 'General error: ' . $e->getMessage());
+        }
+
+        return $result;
+    }
+
     public function get(string $endpoint) :array
     {
-        $res = $this->client->get($endpoint, [
+        return $this->setupRequest('get', $endpoint, [
             'auth' => $this->auth
         ]);
-
-        return array_merge(['code' => $res->getStatusCode()], json_decode($res->getBody()->getContents(),true));
     }
 
     public function post(string $endpoint, array $data) :array
     {
-        $res = $this->client->post($endpoint, [
+        return $this->setupRequest('post', $endpoint, [
             'auth' => $this->auth,
             'form_params' => $data
         ]);
-
-        return array_merge(['code' => $res->getStatusCode()], json_decode($res->getBody()->getContents(),true));
     }
 
     public function put(string $endpoint, array $data) :array
     {
-        $res = $this->client->put($endpoint, [
+        return $this->setupRequest('put', $endpoint, [
             'auth' => $this->auth,
             'form_params' => $data
         ]);
-
-        return array_merge(['code' => $res->getStatusCode()], json_decode($res->getBody()->getContents(),true));
     }
 
     public function delete(string $endpoint) :array
     {
-        $res = $this->client->delete($endpoint, [
+        return $this->setupRequest('delete', $endpoint, [
             'auth' => $this->auth
         ]);
-
-        return array_merge(['code' => $res->getStatusCode()], json_decode($res->getBody()->getContents(),true));
     }
 }

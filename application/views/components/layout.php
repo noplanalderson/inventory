@@ -84,6 +84,15 @@
                 "orderable": true
             }]
         });
+
+        $('#deviceTable').DataTable({
+            "pagingType": "simple_numbers",
+            "order": [],
+            "columnDefs": [{
+                "targets": "no-sort",
+                "orderable": false
+            }]
+        });
     </script>
     <?= showJS($js) ?>
 </body>

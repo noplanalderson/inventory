@@ -7,6 +7,11 @@ class User extends CI_Controller
 
     public $input;
 
+    public function __construct()
+    {
+        parent::__construct();
+        if(sessionGet('gid') !== 'admin') redirect('home');   
+    }
     public function index()
     {
         $response = apiGet('users');

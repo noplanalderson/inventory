@@ -146,6 +146,7 @@ class Devices extends CI_Controller
             $errors     = [];
             $post       = $this->input->post(null, true);
 
+            $this->form_validation->set_rules('deviceId', 'Device ID', 'required|integer');
             $this->form_validation->set_rules($this->__validation());
             if($this->form_validation->run())
             {

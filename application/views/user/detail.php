@@ -31,10 +31,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="editUserForm" action="<?php echo base_url('user/update/' . $user['userId']); ?>"
-                        method="post">
-                        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
-                            value="<?php echo $this->security->get_csrf_hash(); ?>">
+                    <?php echo form_open_multipart(base_url('user/update/' . $user['userId']), 'id="editUserForm" method="post"');?>
                         <div class="form-group">
                             <label for="userName"><strong>Username:</strong></label>
                             <input type="text" class="form-control" id="userName" name="userName"
@@ -43,12 +40,12 @@
                         <div class="form-group">
                             <label for="userPassword"><strong>Password:</strong></label>
                             <input type="password" class="form-control" id="userPassword" name="userPassword"
-                                placeholder="********" disabled>
+                                placeholder="********" required disabled>
                         </div>
                         <div class="form-group">
                             <label for="passwordRepeat"><strong>Repeat Password:</strong></label>
                             <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat"
-                                placeholder="********" disabled>
+                                placeholder="********" required disabled>
                         </div>
                         <div class="form-group">
                             <label for="userLevel"><strong>User Level:</strong></label>
@@ -70,8 +67,8 @@
                         </div>
                         <div class="form-group">
                             <label for="userPicture"><strong>Picture URL:</strong></label>
-                            <input type="text" class="form-control" id="userPicture" name="userPicture"
-                                value="<?php echo $user['userPicture']; ?>" disabled>
+                            <input type="hidden" name="userPictureOld" value="<?= $user['userPicture']; ?>" required>
+                            <input type="file" class="form-control" id="userPicture" name="userPicture" disabled>
                         </div>
                         <button type="button" class="btn btn-secondary" id="cancelButton"
                             style="display:none;">Cancel</button>

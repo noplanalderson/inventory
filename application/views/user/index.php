@@ -35,9 +35,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addUserForm" action="<?php echo base_url('user/add'); ?>" method="post">
-                        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
-                            value="<?php echo $this->security->get_csrf_hash(); ?>">
+                    <?php echo form_open_multipart(base_url('user/add'), 'id="addUserForm" method="post"');?>
                         <div class="form-group">
                             <label for="userName">Name</label>
                             <input type="text" class="form-control" id="userName" name="userName" required>
@@ -47,8 +45,8 @@
                             <input type="password" class="form-control" id="userPassword" name="userPassword" required>
                         </div>
                         <div class="form-group">
-                            <label for="userPicture">Picture URL</label>
-                            <input type="text" class="form-control" id="userPicture" name="userPicture">
+                            <label for="userPicture">Picture</label>
+                            <input type="file" class="form-control" id="userPicture" name="userPicture">
                         </div>
                         <div class="form-group">
                             <label for="userLevel">Level</label>
@@ -86,7 +84,10 @@
                     </thead>
                     <tbody>
                         <?php if (!empty($users) && is_array($users)): ?>
-                            <?php foreach ($users as $index => $user): ?>
+                            <?php 
+                                foreach ($users as $index => $user): 
+                                    if($user['userId'] !== sessionGet('uid')) :
+                            ?>
                                 <tr>
                                     <td><?php echo $index + 1; ?></td>
                                     <td><?php echo $user['userName']; ?></td>
@@ -103,7 +104,7 @@
                                             class="btn btn-info btn-sm">Detail</a>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endif; endforeach; ?>
                         <?php endif; ?>
                     </tbody>
                 </table>

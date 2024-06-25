@@ -51,7 +51,9 @@ class Login extends CI_Controller
                     if(password_verify($password, $user['userPassword'])) {
                         sessionSet([
                             'uid' => $user['userId'],
-                            'gid' => $user['userLevel']
+                            'gid' => $user['userLevel'],
+                            'username' => $user['userName'],
+                            'user_picture' => $user['userPicture']
                         ]);
                         $status  = true;
                         $message = 'Login berhasil, mengalihkan ke halaman utama.';

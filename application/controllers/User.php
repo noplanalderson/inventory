@@ -7,6 +7,8 @@ class User extends CI_Controller
 
     public $input;
 
+    public $upload;
+
     public $access_control;
 
     public function __construct()
@@ -30,20 +32,49 @@ class User extends CI_Controller
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $error = null;
+            $this->load->library('upload');
+            $filename = sessionGet('username').'_'.uniqid(8).'_'.time();
+            $config = array(
+                'upload_path' => FCPATH . 'assets/uploads/users/',
+                'allowed_types' => 'jpeg|jpg|webp|png',
+                'max_size' => 5200,
+                'detect_mime' => TRUE,
+                'file_ext_tolower' => TRUE,
+                'file_name' => $filename
+            );
+
+            $this->upload->initialize($config);
+            if ( ! $this->upload->do_upload('userPicture'))
+            {
+                $filename = 'user.png';
+                $error = $this->upload->display_errors();
+            }
+            else
+            {
+                $img = $this->upload->data();
+                $filename = $img['file_name'];
+            }
+            
             $data = [
                 'userName' => $this->input->post('userName'),
-                'userPassword' => $this->input->post('userPassword'),
-                'userPicture' => $this->input->post('userPicture'),
+                'userPassword' => password_hash($this->input->post('userPassword'), PASSWORD_ARGON2ID, [
+                    'memory_cost' => 1<<17, 
+                    'time_cost' => 4, 
+                    'threads' => 2
+                ]),
                 'userLevel' => $this->input->post('userLevel'),
                 'userStatus' => $this->input->post('userStatus'),
+                'userPicture' => $filename
             ];
 
             $response = apiPost('users', $data);
 
             if ($response['code'] == 200) {
-                $this->session->set_flashdata('success', 'User berhasil dibuat!');
+                $this->session->set_flashdata('success', 'User berhasil dibuat! ('.$error.')');
             } else {
-                $this->session->set_flashdata('error', 'User gagal dibuat!');
+                $this->session->set_flashdata('error', 'User gagal dibuat! ('.$error.')');
             }
 
             redirect('user');
@@ -65,10 +96,39 @@ class User extends CI_Controller
     public function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $error = null;
+            $this->load->library('upload');
+            $filename = sessionGet('username').'_'.uniqid(8).'_'.time();
+            $config = array(
+                'upload_path' => FCPATH . 'assets/uploads/users/',
+                'allowed_types' => 'jpeg|jpg|webp|png',
+                'max_size' => 5200,
+                'detect_mime' => TRUE,
+                'file_ext_tolower' => TRUE,
+                'file_name' => $filename
+            );
+
+            $this->upload->initialize($config);
+            if ( ! $this->upload->do_upload('userPicture'))
+            {
+                $filename = $this->input->post('userPictureOld', TRUE);
+                $error = $this->upload->display_errors();
+            }
+            else
+            {
+                $img = $this->upload->data();
+                $filename = $img['file_name'];
+            }
+
             $data = [
                 'userName' => $this->input->post('userName'),
-                'userPassword' => $this->input->post('userPassword'),
-                'userPicture' => $this->input->post('userPicture'),
+                'userPassword' => password_hash($this->input->post('userPassword'), PASSWORD_ARGON2ID, [
+                    'memory_cost' => 1<<17, 
+                    'time_cost' => 4, 
+                    'threads' => 2
+                ]),
+                'userPicture' => $filename,
                 'userLevel' => $this->input->post('userLevel'),
                 'userStatus' => $this->input->post('userStatus'),
             ];
@@ -89,6 +149,7 @@ class User extends CI_Controller
     {
         $response = apiDelete('users/' . $id);
         if ($response['code'] == 200) {
+            @unlink(FCPATH . 'uploads/users/' . sessionGet('user_picture'));
             $this->session->set_flashdata('success', 'User berhasil dihapus!');
         } else {
             $this->session->set_flashdata('error', 'User gagal dihapus');
